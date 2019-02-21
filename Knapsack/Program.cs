@@ -7,11 +7,11 @@ namespace Knapsack {
     static void Main(string[] args) {
 
       var @params = new MPSolverParameters();
-      @params.SetDoubleParam(0, 0);
-      @params.SetDoubleParam(1, 0);
-      @params.SetDoubleParam(2, 0);
+      @params.SetDoubleParam(MPSolverParameters.DoubleParam.RELATIVE_MIP_GAP, 0);
+      @params.SetDoubleParam(MPSolverParameters.DoubleParam.PRIMAL_TOLERANCE, 0);
+      @params.SetDoubleParam(MPSolverParameters.DoubleParam.DUAL_TOLERANCE, 0);
 
-      var solver = new Solver("BOP_Knapsack", 12);
+      var solver = new Solver("BOP_Knapsack", (Solver.OptimizationProblemType)12);
       BuildModel(solver);
 
       var result = solver.Solve(@params);
@@ -20,7 +20,7 @@ namespace Knapsack {
       Console.WriteLine("objective: " + solver.Objective().Value());
       Console.WriteLine("bound: " + solver.Objective().BestBound());
 
-      solver = new Solver("CBC_Knapsack", 5);
+      solver = new Solver("CBC_Knapsack", (Solver.OptimizationProblemType)5);
       BuildModel(solver);
 
       result = solver.Solve(@params);
